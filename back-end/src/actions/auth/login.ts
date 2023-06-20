@@ -3,9 +3,11 @@ import { attemptLogin } from "../../services/auth";
 
 export default async (request: Request, response: Response) => {
   try {
-    const { login, password } = request.body;
+    const { email, password } = request.body;
 
-    const token = await attemptLogin(login, password);
+    console.log("request.body", request.body);
+
+    const token = await attemptLogin(email, password);
 
     return response.json({ token });
   } catch (e: any) {

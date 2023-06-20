@@ -17,7 +17,6 @@ model User {
   role        UserRole  @default(USER)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  orders      Order[]
   reservations Reservation?
   deleted Boolean @default(false)
   profile Profile? 
@@ -36,8 +35,7 @@ model Profile {
 enum UserRole {
   ADMIN
   USER
-  KitchenStaff
-  WaiterStaff
+  STAFF
 }
 
 enum OrderStatus {
@@ -47,54 +45,63 @@ enum OrderStatus {
   CANCELED
 }
 
-model Order {
-  id          String   @id @default(cuid()) @unique
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String
-  table       Table    @relation(fields: [tableId], references: [id])
-  tableId     String
-  items       MenuItem[]
-  total       Float
-  status      OrderStatus
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
 
+model Order {
+  id            String      @id @default(cuid()) @unique
+  table         Table       @relation(fields: [tableId], references: [number])
+  tableId       Int  
+  items         OrderItem[]
+  total         Float
+  status        OrderStatus
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
 
 
 model MenuItem {
-  id          String   @id @default(cuid()) @unique
-  name        String @unique
+  id          String      @id @default(cuid()) @unique
+  name        String      @unique
   price       Float
+  description String
   observations String?
-  order Order[]
+  orders      OrderItem[]
+}
+
+model OrderItem {
+  id        String    @id @default(cuid()) @unique
+  order     Order     @relation(fields: [orderId], references: [id])
+  orderId   String
+  menuItem  MenuItem  @relation(fields: [menuItemId], references: [name])
+  menuItemId String
+  quantity  Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
 }
 
 
-
 model Table {
-  id          String   @id @default(cuid()) @unique
-  number      Int
+  number      Int          @id @unique @default(autoincrement())
   capacity    Int
-  available   Boolean
+  available   Boolean      @default(true)
+  deleted     Boolean      @default(false)
+  reservation  Reservation?
   orders      Order[]
-  reservations Reservation[]
+  total       Float        @default(0)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
 }
 
 
 model Reservation {
-  id          String   @id @default(cuid())
-  user        User     @relation(fields: [userId], references: [id])
-  userId      String   @unique
-  table       Table    @relation(fields: [tableId], references: [id])
-  tableId     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  reservationTime DateTime
+  id              String    @id @default(cuid())
+  user            User      @relation(fields: [userId], references: [id])
+  userId          String    @unique
+  table           Table     @relation(fields: [tableId], references: [number])
+  tableId         Int       @unique
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  reservationTime DateTime 
 }
-
-
-
 
 
 

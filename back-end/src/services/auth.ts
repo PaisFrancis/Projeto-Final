@@ -11,14 +11,16 @@ export async function register(
   firstName: string,
   lastName?: string
 ) {
-  /* console.log(
-    "Register function called with:",
-    email,
-    password,
-    role,
-    firstName,
-    lastName
-  ); */
+  if (role === UserRole.ADMIN) {
+    const existingAdmin = await prisma.user.findFirst({
+      where: { role: UserRole.ADMIN },
+    });
+
+    if (existingAdmin) {
+      throw new Error("An admin user already exists");
+    }
+  }
+
   const user = await prisma.user.create({
     data: {
       email,
@@ -33,8 +35,6 @@ export async function register(
     },
   });
 
-  console.log("User created", user);
-
   return createToken(user);
 }
 
@@ -45,14 +45,17 @@ export const findById = async (id: string) =>
   });
 
 export async function attemptLogin(email: string, password: string) {
-  const user = await prisma.user.findFirst({
+  const user = await prisma.user.findUnique({
     where: {
       email,
-      deleted: false,
     },
   });
 
+  console.log("User:", user);
+
   const match = user && (await bcrypt.compare(password, user.password));
+
+  console.log("Match", match);
 
   if (!user || !match) {
     throw new Error("Bad credentials");
@@ -74,6 +77,8 @@ function createToken(user: User): string {
 
   return token;
 }
+
+export const getAll = () => prisma.user.findMany();
 
 export const updateUser = (id: string, user: User) => {
   return prisma.user.update({

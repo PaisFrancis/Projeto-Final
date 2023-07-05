@@ -5,8 +5,6 @@ export default async (request: Request, response: Response) => {
   try {
     const { email, password } = request.body;
 
-    console.log("request.body", request.body);
-
     const token = await attemptLogin(email, password);
 
     return response.json({ token });

@@ -51,11 +51,7 @@ export async function attemptLogin(email: string, password: string) {
     },
   });
 
-  console.log("User:", user);
-
   const match = user && (await bcrypt.compare(password, user.password));
-
-  console.log("Match", match);
 
   if (!user || !match) {
     throw new Error("Bad credentials");
@@ -79,10 +75,3 @@ function createToken(user: User): string {
 }
 
 export const getAll = () => prisma.user.findMany();
-
-export const updateUser = (id: string, user: User) => {
-  return prisma.user.update({
-    where: { id },
-    data: user,
-  });
-};

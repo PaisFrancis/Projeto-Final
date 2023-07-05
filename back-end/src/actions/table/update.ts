@@ -3,17 +3,13 @@ import { updateTable, getTable } from "../../services/table";
 
 export default async (request: Request, response: Response) => {
   const { number } = request.params;
+  const { capacity } = request.body;
 
   const tableNumber = parseInt(number, 10);
 
-  if (!(await getTable(tableNumber))) {
-    return response.status(404).json({
-      code: 404,
-      message: "Table not found",
-    });
-  }
+  // Retrieve the existing reservation and update it
+  const updatedTable = await updateTable(tableNumber, capacity);
 
-  const table = await updateTable(tableNumber, request.body);
-
-  return response.json(table);
+  // Send the reservation order as a response
+  return response.json(updatedTable);
 };

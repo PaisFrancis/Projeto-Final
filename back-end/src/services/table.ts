@@ -7,7 +7,7 @@ const getAllTables = async () => {
     where: {
       deleted: false,
     },
-    include: { orders: true },
+    include: { orders: true, reservation: true },
   });
 
   const tablesWithTotal = tables.map((table) => {
@@ -43,41 +43,20 @@ const getTable = async (number: number) => {
   return table;
 };
 
-const createTable = async (
-  number: number,
-  capacity: number,
-  available: boolean
-) => {
+const createTable = async (number: number, capacity: number) => {
   return prisma.table.create({
     data: {
       number,
       capacity,
-      available,
     },
   });
 };
 
-const updateTable = async (number: number, table: Table) => {
-  const orders = await prisma.order.findMany({
-    where: {
-      tableId: number,
-    },
-    select: {
-      total: true,
-    },
-  });
-
-  const total = orders.reduce((acc, order) => acc + order.total, 0);
-
-  const updatedTable = await prisma.table.update({
+const updateTable = async (number: number, capacity: number) => {
+  return prisma.table.update({
     where: { number },
-    data: {
-      ...table,
-      total,
-    },
+    data: { capacity },
   });
-
-  return updatedTable;
 };
 
 const deleteTable = (number: number) => {

@@ -2,14 +2,15 @@ import { Request, Response } from "express";
 import { createReservation } from "../../services/reservation";
 
 export default async (request: Request, response: Response) => {
-  const { tableId, reservationTime } = request.body;
+  const { customerName, tableId, reservationTime } = request.body;
   const userId = request.user.id;
 
   try {
     const newReservation = await createReservation(
-      userId,
+      customerName,
       tableId,
-      reservationTime
+      reservationTime,
+      userId
     );
     return response.json(newReservation);
   } catch (error) {

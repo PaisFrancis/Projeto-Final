@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-import { backofficeTheme } from "../../theme";
 
 export const Nav = styled.nav`
-  background: ${backofficeTheme.palette.primary};
+  background: ${({ theme }) => theme.palette.background};
   height: 85px;
   display: flex;
   justify-content: space-between;
-  align-items: center; // Added to vertically align items
+  align-items: center;
   padding: 0.2rem calc((100vw - 1000px) / 2);
 `;
 
@@ -17,7 +16,7 @@ export const NavLinksContainer = styled.div`
 `;
 
 export const StyledNavLink = styled(NavLink)`
-  color: ${backofficeTheme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.primary};
   display: flex;
   align-items: center;
   text-decoration: none;
@@ -26,19 +25,18 @@ export const StyledNavLink = styled(NavLink)`
   cursor: pointer;
 
   &.active {
-    color: ${backofficeTheme.palette.text.secondary};
-    border-bottom: 2px solid ${backofficeTheme.palette.primary};
+    border-bottom: 2px solid ${({ theme }) => theme.palette.secondary};
     @media (min-width: 640px) {
-      color: ${backofficeTheme.palette.text.secondary};
+      color: ${({ theme }) => theme.palette.text.secondary};
     }
   }
 `;
 
 export const AuthButton = styled.button`
   border-radius: 4px;
-  background: ${backofficeTheme.palette.background.primary};
+  background: ${({ theme }) => theme.palette.background.primary};
   padding: 10px 22px;
-  color: ${backofficeTheme.palette.tertiary};
+  color: ${({ theme }) => theme.palette.tertiary};
   outline: none;
   border: none;
   cursor: pointer;
@@ -47,6 +45,6 @@ export const AuthButton = styled.button`
 
   &:hover {
     transition: all 0.2s ease-in-out;
-    background: ${backofficeTheme.palette.background.secondary};
+    background: ${({ theme }) => theme.palette.background.secondary};
   }
 `;

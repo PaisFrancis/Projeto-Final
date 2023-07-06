@@ -3,7 +3,7 @@ import { verify } from "jsonwebtoken";
 import { ExtendedPayload } from "../models/token";
 import { findById } from "../services/auth";
 
-const publicEndpoints = ["/auth/login", "/auth/register"];
+const publicEndpoints = ["/auth/login", "/auth/register", "/item"];
 
 export function verifyToken(
   request: Request,

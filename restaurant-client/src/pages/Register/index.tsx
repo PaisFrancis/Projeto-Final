@@ -86,6 +86,11 @@ function Register() {
 
     setLoading(true);
     setError(null);
+    console.log(email);
+    console.log(password);
+    console.log(role);
+    console.log(firstName);
+    console.log(lastName);
 
     attemptRegister({
       email: email.value,
@@ -161,7 +166,7 @@ function Register() {
 
           <RegisterLabel htmlFor="password">Password</RegisterLabel>
           <div>
-            <RegisterInput id="role" name="role" type="hidden" value="ADMIN" />
+            <RegisterInput id="role" name="role" type="hidden" value="USER" />
           </div>
 
           <RegisterButton type="submit">

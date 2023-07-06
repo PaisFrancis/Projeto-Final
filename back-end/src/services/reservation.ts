@@ -77,10 +77,34 @@ const deleteReservation = (id: string) => {
   });
 };
 
+const getReservationsByUserId = async (userId: string) => {
+  // First, verify if the user exists
+  const user = await prisma.user.findUnique({ where: { id: userId } });
+
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  // If the user exists, find their reservations
+  const reservations = await prisma.reservation.findMany({
+    where: {
+      userId,
+    },
+  });
+
+  // Check if the user has any reservations
+  if (reservations.length === 0) {
+    throw new Error("No reservations found for this user");
+  }
+
+  return reservations;
+};
+
 export {
   createReservation,
   getReservation,
   getAllReservations,
   updateReservation,
   deleteReservation,
+  getReservationsByUserId,
 };

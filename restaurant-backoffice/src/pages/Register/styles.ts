@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { backofficeTheme } from "../../theme";
 
 // Styled components
 export const RegisterContainer = styled.div`
@@ -19,7 +18,7 @@ export const RegisterFormWrapper = styled.div`
   margin-top: 2rem;
   padding: 2rem;
   border-radius: 1em;
-  background: ${backofficeTheme.palette.background.secondary};
+  background: ${({ theme }) => theme.palette.background.secondary};
 `;
 
 export const RegisterTitle = styled.h2`
@@ -27,7 +26,7 @@ export const RegisterTitle = styled.h2`
   text-align: center;
   font-size: 1.5rem;
   font-weight: bold;
-  color: ${backofficeTheme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.primary};
 `;
 
 export const RegisterForm = styled.form`
@@ -39,45 +38,45 @@ export const RegisterForm = styled.form`
 export const RegisterLabel = styled.label`
   font-size: 0.875rem;
   font-weight: 500;
-  color: ${backofficeTheme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.primary};
 `;
 
 export const RegisterInput = styled.input`
   border: none;
-  border-bottom: 1px solid ${backofficeTheme.palette.text.secondary};
+  border-bottom: 1px solid ${({ theme }) => theme.palette.text.secondary};
   background-color: transparent;
   padding: 0.5rem 0;
-  color: ${backofficeTheme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.primary};
   outline: none;
   &:focus {
-    border-bottom-color: ${backofficeTheme.palette.primary};
+    border-bottom-color: ${({ theme }) => theme.palette.primary};
   }
 `;
 
 export const RegisterButton = styled.button`
   border: none;
   border-radius: 4px;
-  background-color: ${backofficeTheme.palette.primary};
+  background-color: ${({ theme }) => theme.palette.primary};
   padding: 0.75rem 1.5rem;
   font-size: 1rem;
   font-weight: 500;
-  color: ${backofficeTheme.palette.background.primary};
+  color: ${({ theme }) => theme.palette.background.primary};
   cursor: pointer;
   &:hover {
-    background-color: ${backofficeTheme.palette.secondary};
+    background-color: ${({ theme }) => theme.palette.secondary};
   }
 `;
 
 export const SignInLink = styled(Link)`
   font-size: 0.875rem;
   font-weight: 500;
-  color: ${backofficeTheme.palette.primary};
+  color: ${({ theme }) => theme.palette.primary};
   &:hover {
-    color: ${backofficeTheme.palette.secondary};
+    color: ${({ theme }) => theme.palette.secondary};
   }
 `;
 
 export const ErrorMessage = styled.p`
   margin-top: 1rem;
-  color: ${backofficeTheme.palette.error};
+  color: ${({ theme }) => theme.palette.error};
 `;

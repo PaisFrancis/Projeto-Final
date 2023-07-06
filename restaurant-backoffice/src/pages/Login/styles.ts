@@ -1,5 +1,4 @@
 import { styled } from "styled-components";
-import { backofficeTheme } from "../../theme";
 import { Link } from "react-router-dom";
 
 // Styled components
@@ -8,7 +7,7 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${backofficeTheme.palette.background.primary};
+  background-color: ${({ theme }) => theme.palette.background.primary};
 `;
 
 export const Title = styled.h2`
@@ -16,7 +15,7 @@ export const Title = styled.h2`
   text-align: center;
   font-size: 30px;
   font-weight: bold;
-  color: ${backofficeTheme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.primary};
 `;
 
 export const Form = styled.form`
@@ -28,7 +27,7 @@ export const Form = styled.form`
 export const Label = styled.label`
   font-size: 14px;
   font-weight: bold;
-  color: ${backofficeTheme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.primary};
 `;
 
 export const Input = styled.input`
@@ -37,15 +36,15 @@ export const Input = styled.input`
   padding: 5px;
   border-radius: 4px;
   border-width: 0;
-  background-color: ${backofficeTheme.palette.background.secondary};
-  color: ${backofficeTheme.palette.text.primary};
+  background-color: ${({ theme }) => theme.palette.background.secondary};
+  color: ${({ theme }) => theme.palette.text.primary};
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 `;
 
 export const ForgotPasswordLink = styled(Link)`
   font-size: 14px;
   font-weight: bold;
-  color: ${backofficeTheme.palette.primary};
+  color: ${({ theme }) => theme.palette.primary};
 `;
 
 export const SubmitButton = styled.button`
@@ -55,7 +54,7 @@ export const SubmitButton = styled.button`
   align-items: center;
   border-radius: 4px;
   padding: 5px 10px;
-  background-color: ${backofficeTheme.palette.primary};
+  background-color: ${({ theme }) => theme.palette.primary};
 `;
 
 export const SubmitButtonText = styled.span`
@@ -68,10 +67,10 @@ export const RegisterLink = styled.p`
   margin-top: 10px;
   text-align: center;
   font-size: 14px;
-  color: ${backofficeTheme.palette.text.secondary};
+  color: ${({ theme }) => theme.palette.text.secondary};
 `;
 
 export const ErrorText = styled.p`
   margin-top: 4px;
-  color: ${backofficeTheme.palette.error};
+  color: ${({ theme }) => theme.palette.error};
 `;

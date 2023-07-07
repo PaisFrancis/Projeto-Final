@@ -120,6 +120,39 @@ const ReservationPage = () => {
     } as React.ChangeEvent<HTMLInputElement>);
   };
 
+  const isReservationTimeAvailable = (
+    tableId: number,
+    reservationTime: Date
+  ): boolean => {
+    // reservation duration is one hour.
+    const reservationDurationInMilliseconds = 60 * 60 * 1000;
+
+    // Check if the table is already booked within the reservation time slot.
+    const existingReservation = reservations.find((reservation) => {
+      if (reservation.tableId !== tableId) {
+        return false;
+      }
+
+      const existingReservationTime = new Date(
+        reservation.reservationTime
+      ).getTime();
+      const proposedStart = reservationTime.getTime();
+      const proposedEnd = proposedStart + reservationDurationInMilliseconds;
+
+      const reservationStart = existingReservationTime;
+      const reservationEnd =
+        reservationStart + reservationDurationInMilliseconds;
+
+      // Check if the proposed start or end falls within an existing reservation slot
+      return (
+        (proposedStart >= reservationStart && proposedStart < reservationEnd) ||
+        (proposedEnd > reservationStart && proposedEnd <= reservationEnd)
+      );
+    });
+
+    return !existingReservation;
+  };
+
   const handleFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -137,6 +170,12 @@ const ReservationPage = () => {
     const tableId = parseInt(formState.tableId);
     if (!tables.some((table) => table.number === tableId)) {
       setError("The selected table does not exist.");
+      return;
+    }
+
+    const reservationTime = new Date(formState.reservationTime);
+    if (!isReservationTimeAvailable(tableId, reservationTime)) {
+      setError("Reservation time is not available.");
       return;
     }
 

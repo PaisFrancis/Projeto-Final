@@ -40,6 +40,9 @@ function NavBar() {
     navigate(isLoggedIn ? "/" : "/login");
   }
 
+  /*   function NavBar() {
+    const [isOpen, setIsOpen] = useState(false); */
+
   return (
     <Nav>
       <h1> Restaurantino </h1>

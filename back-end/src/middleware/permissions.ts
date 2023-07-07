@@ -1,5 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
+// I decided to attribute different levels of access to different userRoles. Each app has a hidden input for their respective role. Only one admin can be created so that if this hidden input is manipulated it still can't access sensible information.
+
 export const authorizeAdmin = (
   request: Request,
   response: Response,

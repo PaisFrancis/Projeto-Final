@@ -40,7 +40,7 @@ enum UserRole {
 
 enum OrderStatus {
   PENDING
-  PROCESSING
+  READY
   COMPLETED
   CANCELED
 }
@@ -104,8 +104,6 @@ model Reservation {
   reservationTime DateTime 
   
 }
- // @@index([tableId, reservationTime])
-
 
 
 

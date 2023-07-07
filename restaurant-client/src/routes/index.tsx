@@ -5,7 +5,7 @@ import Reservations from "../pages/Reservation";
 import ItemsPage from "../pages/Item";
 import Login from "../pages/Login";
 import NotFound from "../pages/Not Found";
-import Home from "../pages/Home";
+import About from "../pages/Home";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
       {
         index: true,
 
-        element: <Home />,
+        element: <About />,
       },
       {
         path: "/reservations",

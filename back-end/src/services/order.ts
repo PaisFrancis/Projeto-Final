@@ -1,16 +1,21 @@
 import { PrismaClient, OrderStatus, Order } from "@prisma/client";
-import { getMenuItem } from "./item";
 
 export const prisma = new PrismaClient();
 
+// not used yet
 const getAllOrders = () =>
   prisma.order.findMany({
     include: {
       table: true,
-      items: true,
+      items: {
+        include: {
+          menuItem: true,
+        },
+      },
     },
   });
 
+// not used yet
 const getOrder = (id: string) =>
   prisma.order.findFirst({
     where: {
@@ -18,6 +23,8 @@ const getOrder = (id: string) =>
     },
     include: { items: true, table: true },
   });
+
+// this function allows for the creation of an order for a table. It takes quantity so that if 2 items are ordered said item increments in quantity.
 const createOrder = async (
   tableNumber: number,
   items: { name: string; quantity: number }[],
@@ -75,14 +82,15 @@ const createOrder = async (
   });
 };
 
-const updateOrder = (id: string, order: Order) => {
-  // Update the order in the database
+// this function allows the update of the orders. Mainly useful to update the status. (not used yet)
+const updateOrder = (id: string, orderUpdate: Partial<Order>) => {
   return prisma.order.update({
     where: { id },
-    data: order,
+    data: orderUpdate,
   });
 };
 
+// not used yet
 const deleteOrder = async (id: string) => {
   // Find the associated order items
   const orderItems = await prisma.orderItem.findMany({

@@ -2,6 +2,8 @@ import { PrismaClient, User, UserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { sign } from "jsonwebtoken";
 
+// authentication process using json webtokens. I decided to only allow the registry of one admin for security purposes.
+
 const prisma = new PrismaClient();
 
 export async function register(

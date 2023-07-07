@@ -2,6 +2,7 @@ import { PrismaClient, Reservation } from "@prisma/client";
 
 export const prisma = new PrismaClient();
 
+// this function allows the backoffice to access and view all reservations
 const getAllReservations = () => prisma.reservation.findMany();
 
 const getReservation = (id: string) => {
@@ -12,6 +13,7 @@ const getReservation = (id: string) => {
   });
 };
 
+// this reservation serves the purpose of creating reservation both for clients and backoffice, that is why userId is optional. On the client-side a register is required to make a reservation and the id is fetched from the token. On the backoffice side I allowed reservations without id becacuse someone might call the restaurant and book a reservation without being registered
 const createReservation = async (
   customerName: string,
   tableId: number,
@@ -64,6 +66,7 @@ const createReservation = async (
   });
 };
 
+//reservations can be updated
 const updateReservation = (id: string, reservation: Reservation) => {
   return prisma.reservation.update({
     where: { id },
@@ -77,6 +80,7 @@ const deleteReservation = (id: string) => {
   });
 };
 
+// I had to create this function so that the reservations on the client-side only displayed said client's reservations
 const getReservationsByUserId = async (userId: string) => {
   // First, verify if the user exists
   const user = await prisma.user.findUnique({ where: { id: userId } });

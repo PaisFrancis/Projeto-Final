@@ -5,9 +5,9 @@ import { authorizeStaff, authorizeUser } from "../middleware/permissions";
 const router = express.Router();
 
 router.get("", authorizeStaff, getAll);
-router.get("/:id", authorizeUser, get);
-router.post("", authorizeUser, create);
-router.delete("/:id", authorizeUser, remove);
-router.put("/:id", authorizeUser, update);
+router.get("/:id", authorizeStaff, get);
+router.post("", authorizeStaff, create);
+router.delete("/:id", authorizeStaff, remove);
+router.put("/:id", authorizeStaff, update);
 
 export default router;

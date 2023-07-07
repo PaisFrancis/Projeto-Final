@@ -68,6 +68,10 @@ const Home = () => {
           369 369 369 .
         </p>
         <p>Restaurantino by Zeferino. All rights reserved. &copy;</p>
+        <p>
+          Open everyday from 13.00 to whenever you want to leave. Kitchen closes
+          at 23.00 .
+        </p>
       </Footer>
     </HomeContainer>
   );

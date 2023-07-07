@@ -50,6 +50,7 @@ export const Button = styled.button`
   color: ${({ theme }) => theme.palette.text.secondary};
   border: none;
   padding: 10px 20px;
+  margin: 10px;
   border-radius: 5px;
   cursor: pointer;
 

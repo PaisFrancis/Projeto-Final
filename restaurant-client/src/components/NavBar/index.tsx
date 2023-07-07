@@ -17,7 +17,7 @@ function NavBar() {
   const pages: Page[] = [
     {
       path: "/",
-      name: "Home",
+      name: "About Us",
     },
     {
       path: "/reservations",

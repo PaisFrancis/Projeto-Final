@@ -26,9 +26,6 @@ export const StyledNavLink = styled(NavLink)`
 
   &.active {
     border-bottom: 2px solid ${({ theme }) => theme.palette.secondary};
-    @media (min-width: 640px) {
-      color: ${({ theme }) => theme.palette.text.secondary};
-    }
   }
 `;
 
